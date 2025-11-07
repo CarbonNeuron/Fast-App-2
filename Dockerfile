@@ -25,8 +25,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Skip environment validation during build
 ENV SKIP_ENV_VALIDATION=1
 
-# Generate Prisma client before building
-RUN npx prisma generate
+# Generate Prisma client before building (skip env validation)
+RUN SKIP_ENV_VALIDATION=1 npx prisma generate
 
 RUN npm run build
 
