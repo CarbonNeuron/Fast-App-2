@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Logo from "./components/Logo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +15,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Folder Browser",
+  title: "Fast App 2 - Folder Browser",
   description:
-    "Navigate through digital pathways with an intuitive numpad interface",
+    "Navigate through digital pathways with an intuitive file browser interface",
+  icons: {
+    icon: [
+      // Modern browsers - SVG support
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-16.svg", type: "image/svg+xml", sizes: "16x16" },
+      { url: "/favicon-32.svg", type: "image/svg+xml", sizes: "32x32" }
+    ],
+    shortcut: "/favicon.svg",
+    apple: [
+      { url: "/apple-touch-icon.svg", sizes: "192x192", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -35,14 +48,7 @@ export default function RootLayout({
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
               <div className="flex items-center">
-                <Link href="/" className="flex-shrink-0 flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary-400 to-accent-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">FA</span>
-                  </div>
-                  <span className="text-xl font-semibold text-white">
-                    Fast App 2
-                  </span>
-                </Link>
+                <Logo href="/" className="flex-shrink-0" />
               </div>
 
               {/* Account Button */}

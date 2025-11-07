@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <defs>
+    <linearGradient id="grad16" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rounded square -->
+  <rect width="16" height="16" rx="3" ry="3" fill="url(#grad16)"/>
+  
+  <!-- File browser icon - simplified for 16x16 -->
+  <g fill="white">
+    <!-- Folder shape -->
+    <path d="M3 5c0-.55.45-1 1-1h2l1 1h4c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1H4c-.55 0-1-.45-1-1V5z"/>
+    
+    <!-- Folder content lines -->
+    <rect x="4" y="7" width="2" height="0.5" rx="0.25"/>
+    <rect x="4" y="8" width="3" height="0.5" rx="0.25"/>
+    <rect x="4" y="9" width="1.5" height="0.5" rx="0.25"/>
+  </g>
+</svg>

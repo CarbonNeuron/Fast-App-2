@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <!-- Background rounded square -->
+  <rect width="192" height="192" rx="36" ry="36" fill="#34d399"/>
+  
+  <!-- File browser icon scaled up -->
+  <g fill="white">
+    <!-- Folder shape -->
+    <path d="M48 60c0-6.6 5.4-12 12-12h24l12 12h48c6.6 0 12 5.4 12 12v48c0 6.6-5.4 12-12 12H60c-6.6 0-12-5.4-12-12V60z"/>
+    
+    <!-- Folder content area -->
+    <path d="M48 72h96v48H48V72z" fill-opacity="0.3"/>
+    
+    <!-- File/folder lines inside -->
+    <rect x="60" y="84" width="24" height="6" rx="3"/>
+    <rect x="60" y="96" width="36" height="6" rx="3"/>
+    <rect x="60" y="108" width="18" height="6" rx="3"/>
+  </g>
+</svg>
