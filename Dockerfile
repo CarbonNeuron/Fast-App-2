@@ -22,6 +22,11 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
+# Skip environment validation during build
+ENV SKIP_ENV_VALIDATION=1
+
+# Generate Prisma client before building
+RUN npx prisma generate
 
 RUN npm run build
 
@@ -42,8 +47,17 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Install production dependencies including Prisma CLI
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production && npm cache clean --force
+
 # Copy the standalone output from builder stage
 COPY --from=builder /app/public ./public
+
+# Copy Prisma schema and generated client
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
@@ -54,8 +68,9 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy production node_modules (optional - standalone should include what's needed)
-# COPY --from=prod-deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+# Copy startup script that runs migrations then starts the app
+COPY --chown=nextjs:nodejs start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 USER nextjs
 
@@ -64,6 +79,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["node", "server.js"]
+# Use the startup script instead of directly running server.js
+CMD ["/app/start.sh"]
